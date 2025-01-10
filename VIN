@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickable Hotspot Activity</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            background-image: url('https://via.placeholder.com/800x500'); /* https://cdn.pixabay.com/photo/2024/12/06/12/23/ai-generated-9248643_1280.jpg */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+        }
+
+        .popup {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hotspots -->
+        <div class="hotspot" id="hotspot-julie" style="top: 30%; left: 25%;"></div>
+        <div class="hotspot" id="hotspot-mark" style="top: 30%; left: 75%;"></div>
+        <div class="hotspot" id="hotspot-collaboration" style="top: 70%; left: 50%;"></div>
+
+        <!-- Popups -->
+        <div class="popup" id="popup-julie">
+            <button class="close-btn">&times;</button>
+            <h3>Julie - Instructional Designer</h3>
+            <p>Julie focuses on structuring the course content, analyzing learner needs, and ensuring the course is pedagogically sound.</p>
+        </div>
+
+        <div class="popup" id="popup-mark">
+            <button class="close-btn">&times;</button>
+            <h3>Mark - Graphic Designer</h3>
+            <p>Mark is responsible for creating visuals, selecting color schemes, and designing layouts to enhance learning experiences.</p>
+        </div>
+
+        <div class="popup" id="popup-collaboration">
+            <button class="close-btn">&times;</button>
+            <h3>Collaboration</h3>
+            <p>Julie and Mark combine their expertise to create engaging and effective learning experiences, like a module on solar energy.</p>
+        </div>
+    </div>
+
+    <script>
+        const hotspots = document.querySelectorAll('.hotspot');
+        const popups = document.querySelectorAll('.popup');
+
+        hotspots.forEach(hotspot => {
+            hotspot.addEventListener('click', () => {
+                popups.forEach(popup => popup.classList.remove('active'));
+                const popupId = `popup-${hotspot.id.split('-')[1]}`;
+                document.getElementById(popupId).classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.close-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.target.parentElement.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
